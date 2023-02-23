@@ -1,0 +1,18 @@
+<h1>Nations Data</h1>
+
+  <table style="border: 2px solid black;">
+    <thead>
+      <th>Population</th>
+      <th>Nation</th>
+      <th>ID Nation</th>
+      <th>ID Year</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let n of arr">
+        <td>{{n["Population"]}}</td>
+        <td>{{n["Nation"]}}</td>
+        <td>{{n["ID Nation"]}}</td>
+        <td>{{n["ID Year"]}}</td>
+      </tr>
+    </tbody>
+  </table>

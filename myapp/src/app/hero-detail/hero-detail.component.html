@@ -1,0 +1,5 @@
+<div>
+  <span>{{inputHero.name}}</span>
+  <span>{{inputHero.id}}</span>
+  <input [(ngModel)]="inputHero.name" (keyup)="sendToParent(inputHero)">
+</div>

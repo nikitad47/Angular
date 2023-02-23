@@ -1,0 +1,10 @@
+<h3 >Student {{inputStudent.id}} Details</h3>
+
+<h3>Student Details</h3>
+
+<span>Id : {{inputStudent.id}}</span><br>
+<span>Name : {{inputStudent.name}}</span><br>
+<span>Gender : {{inputStudent.gender}}</span><br>
+<span>Class : {{inputStudent.class}}</span><br>
+<span>Rank : <input [(ngModel)]="inputStudent.rank" (keyup)="sendToParent(inputStudent)"></span><br>
+<button (click)="updateDetails(inputStudent)">Update</button>
