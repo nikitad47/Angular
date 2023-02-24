@@ -1,0 +1,30 @@
+  <form [formGroup]="myform">
+    <label>First Name : </label>
+    <input formControlName="fname"><br>
+    <label>Last Name : </label>
+    <input formControlName="lname"><br>
+    <label>Address : </label>
+    <input formControlName="address"><br>
+    <label>Age : </label>
+    <input formControlName="age"><br>
+    <label>Category : </label>
+    <select formControlName="type">
+      <option>Student</option>
+      <option>Professional</option>
+    </select>
+  </form>
+  <button [disabled]="!myform.valid" (click)="sendData()">Update</button>
+
+  <div *ngIf="display">
+    <p>FirstName : {{myform.getRawValue().fname}}</p>
+    <p>LastName : {{myform.getRawValue().lname}}</p>
+    <p>Address : {{myform.getRawValue().address}}</p>
+    <p>Age : {{myform.getRawValue().age}}</p>
+    <p>Category : {{myform.getRawValue().type}}</p>
+  </div>
+
+  <!-- <p>FirstName: {{fname.value}}</p>
+  <p>LastName: {{lname.value}}</p>
+  <p>Address: {{address.value}}</p>
+  <p>Age: {{age.value}}</p>
+  <button (click)="updateData()">Update</button> -->

@@ -1,0 +1,38 @@
+  <!-- <table>
+    <thead>
+      <tr>
+        <th><label>First Name : </label></th>
+        <th><label>Last Name : </label></th>
+        <th><label>Address : </label></th>
+        <th><label>Age : </label></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input [(ngModel)]="user.fname"></td>
+        <td><input [(ngModel)]="user.lname"></td>
+        <td><input [(ngModel)]="user.address"></td>
+        <td><input [(ngModel)]="user.age"></td>
+      </tr>
+    </tbody>
+  </table> -->
+
+  <label>First Name : </label>
+  <input [formControl]="fname"><br>
+  <label>Last Name : </label>
+  <input [formControl]="lname"><br>
+  <label>Address : </label>
+  <input [formControl]="address"><br>
+  <label>Age : </label>
+  <input [formControl]="age"><br>
+
+  <p>FirstName: {{fname.value}}</p>
+  <p>LastName: {{lname.value}}</p>
+  <p>Address: {{address.value}}</p>
+  <p>Age: {{age.value}}</p>
+  <button (click)="updateUser()">Update</button>
+
+
+
+
+
