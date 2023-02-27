@@ -1,10 +1,26 @@
-<h3 >Student {{inputStudent.id}} Details</h3>
+<form [formGroup]="myform">
+    <label>rollNo : </label>
+    <input formControlName="fname"><br>
+    <label>Name : </label>
+    <input formControlName="lname"><br>
+    <label>Gender : </label>
+    <input formControlName="address"><br>
+    <label>Class : </label>
+    <input type="number" formControlName="age"><br>
+    <label>Address : </label>
+    <input type="number" formControlName="age"><br>
+    <label>Age : </label>
+</form>
+<button [disabled]="!myform.valid" (click)="sendData()">Update</button>
 
-<h3>Student Details</h3>
-
-<span>Id : {{inputStudent.id}}</span><br>
-<span>Name : {{inputStudent.name}}</span><br>
-<span>Gender : {{inputStudent.gender}}</span><br>
-<span>Class : {{inputStudent.class}}</span><br>
-<span>Rank : <input [(ngModel)]="inputStudent.rank" (keyup)="sendToParent(inputStudent)"></span><br>
-<button (click)="updateDetails(inputStudent)">Update</button>
+<div>
+  <h3 >Student {{inputStudent.id}} Details</h3>
+  <span>Id : {{inputStudent.id}}</span><br>
+  <span>Name : {{inputStudent.name}}</span><br>
+  <span>Gender : {{inputStudent.gender}}</span><br>
+  <span>Class : {{inputStudent.class}}</span><br>
+  <span>Rank : <input type="number" [(ngModel)]="inputStudent.rank"
+    (keyup)="sendToParent(inputStudent)">
+  </span><br>
+  <button (click)="updateDetails(inputStudent)">Update</button>
+</div>

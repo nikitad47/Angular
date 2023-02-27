@@ -1,7 +1,9 @@
 export class Student{
-  id!:number;
+  rollNo!:number;
   name!: string;
   gender!: string;
   class!: string;
   rank!: number;
+  age!: number;
+  address!: string;
 }

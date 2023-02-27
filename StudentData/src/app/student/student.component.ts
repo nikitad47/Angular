@@ -13,8 +13,8 @@ export class StudentComponent {
  students = this.studentService.getStudents();
 
  studList: any=[];
+ selectedStudent = {id:0, name:'', gender:'', class:'', rank:0}
 
- selectedStudent = {id:0, name:'', gender:'', class:'', rank:''}
  studentClick(student: any){
   this.selectedStudent = student;
  }

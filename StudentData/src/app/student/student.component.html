@@ -1,5 +1,5 @@
 <h1>Student Data</h1>
-
+<div>
 <button (click)="getAscending()">Ascending</button>
 <button (click)="getDescending()">Descending</button>
 
@@ -25,6 +25,7 @@
       </tr>
     </tbody>
   </table>
+</div>
 </div>
 <div *ngIf="this.selectedStudent.name">
   <app-student-details [inputStudent]="selectedStudent"></app-student-details>
