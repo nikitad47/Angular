@@ -5,7 +5,17 @@
   outline: 0;
   box-sizing:border-box;
 }
-
+hr{
+  display: block;
+  unicode-bidi: isolate;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  overflow: hidden;
+  border-style: inset;
+  border-width: 1px;
+}
 
 .btn{
   display: flex;
@@ -22,14 +32,14 @@
   height: 700px;
 }
 .green {
-  background-color: #66bb6a;
+  background-color: green;
 }
 .red {
-  background-color: #e53935;
+  background-color: red;
   border: none;
 }
 .yellow {
-  background-color: #fff176;
+  background-color: yellow;
   border-color: black;
 }
 .blue {
@@ -40,6 +50,7 @@
 .house {
   display: inline-block;
   position: absolute;
+  border: black solid;
   width:40%;
   height:40%;
   padding:7%;
@@ -79,9 +90,9 @@
   left: 40%;
   width: 20%;
   height: 20%;
-  border-bottom: 70px solid #e53935;
-  border-top: 70px solid #fff176;
-  border-left: 70px solid #66bb6a;
+  border-bottom: 70px solid red;
+  border-top: 70px solid yellow;
+  border-left: 70px solid green;
   border-right: 70px solid blue;
 }
 .cells {
@@ -99,27 +110,27 @@
   clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }
 .g-start {
-  background-color: #66bb6a;
+  background-color: green;
   -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
   clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
 
 }
 .y-start {
-  background-color: #fff176;
+  background-color: yellow;
   -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
   clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
 
 }
 
 .y-pin {
-  background-color: #fff176;
+  background-color: yellow;
   -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
   clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
 
 }
 
 .r-start {
-  background-color: #e53935;
+  background-color: red;
   -webkit-clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
   clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
 
@@ -144,7 +155,7 @@
 }
 
 button {
-  background-color: rgb(255, 0, 0);
+  background-color: red;
   border-radius: 20px;
   border: none;
   color: rgb(0, 0, 0);

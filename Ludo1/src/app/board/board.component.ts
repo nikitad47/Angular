@@ -1,4 +1,5 @@
 import { Component } from "@angular/core"
+import Swal from "sweetalert2"
 
 interface Pin {
   direction:string,
@@ -29,6 +30,31 @@ export class BoardComponent {
   turn:number = 1;
   winvar = [0,0,0,0]
 
+  GameBoard: Board = {
+    pins: [
+      {id:1,ix:2,iy:2,x:2,y:2,ownerID:1,isPlaying:false,direction:"right"},
+      {id:2,ix:2,iy:3,x:2,y:3,ownerID:1,isPlaying:false,direction:"right"},
+      {id:3,ix:3,iy:2,x:3,y:2,ownerID:1,isPlaying:false,direction:"right"},
+      {id:4,ix:3,iy:3,x:3,y:3,ownerID:1,isPlaying:false,direction:"right"},
+
+      {id:5,ix:11,iy:2,x:11,y:2,ownerID:2,isPlaying:false,direction:"down"},
+      {id:6,ix:11,iy:3,x:11,y:3,ownerID:2,isPlaying:false,direction:"down"},
+      {id:7,ix:12,iy:2,x:12,y:2,ownerID:2,isPlaying:false,direction:"down"},
+      {id:8,ix:12,iy:3,x:12,y:3,ownerID:2,isPlaying:false,direction:"down"},
+
+      {id:9,ix:11,iy:11,x:11,y:11,ownerID:3,isPlaying:false,direction:"left"},
+      {id:10,ix:11,iy:12,x:11,y:12,ownerID:3,isPlaying:false,direction:"left"},
+      {id:11,ix:12,iy:11,x:12,y:11,ownerID:3,isPlaying:false,direction:"left"},
+      {id:12,ix:12,iy:12,x:12,y:12,ownerID:3,isPlaying:false,direction:"left"},
+
+      {id:13,ix:2,iy:11,x:2,y:11,ownerID:4,isPlaying:false,direction:"up"},
+      {id:14,ix:3,iy:11,x:3,y:11,ownerID:4,isPlaying:false,direction:"up"},
+      {id:15,ix:2,iy:12,x:2,y:12,ownerID:4,isPlaying:false,direction:"up"},
+      {id:16,ix:3,iy:12,x:3,y:12,ownerID:4,isPlaying:false,direction:"up"},
+
+    ]
+  };
+
    getBasePositon(onwer:number){
     switch(onwer){
       case 1:
@@ -52,16 +78,16 @@ export class BoardComponent {
 
     if(p.isPlaying){
 
-      //Constraint for center overflow
+      //Rules for center overflow
       if(p.x == 7 && p.y == 7) {
         p.isPlaying = false
         return;
       }
 
-      console.log(p.x,p.y) //For Debug Purpose
+      console.log(p.x,p.y) //For co-ordinates
 
-      //directionConstraints for board turn movement
-      let directionConstraints = [
+      //directionRules for board turn movement
+      let directionRules = [
         {x:6,y:0,direction:'right'},
         {x:14,y:6,direction:'down'},
         {x:8,y:0,direction:'down'},
@@ -72,14 +98,14 @@ export class BoardComponent {
         {x:0,y:6,direction:'right'},
       ]
 
-      let ownerConstraints = [
+      let ownerRules = [
         {x:0,y:7,direction:'right',ownerID : 1},
         {x:7,y:0,direction:'down',ownerID : 2},
         {x:14,y:7,direction:'left',ownerID : 3},
         {x:7,y:14,direction:'up',ownerID : 4},
       ]
 
-      let teleportConstraints = [
+      let CrossRules = [
         {x:5,y:6,x1:6,y1:5,direction:'up'},
         {x:8,y:5,x1:9,y1:6,direction:'right'},
         {x:6,y:9,x1:5,y1:8,direction:'left'},
@@ -87,7 +113,7 @@ export class BoardComponent {
       ]
 
       //Parse Direction
-      for( let c of directionConstraints){
+      for( let c of directionRules){
 
         if(Math.floor(p.x)==c.x && Math.floor(p.y) ==c.y){
           p.direction = c.direction;
@@ -95,8 +121,8 @@ export class BoardComponent {
         }
       }
 
-      //Parse Teleport
-      for( let c of teleportConstraints){
+      //Parse Cross
+      for( let c of CrossRules){
         if(Math.floor(p.x)==c.x && Math.floor(p.y) ==c.y){
           p.direction = c.direction;
           p.x = c.x1; p.y = c.y1;
@@ -104,8 +130,8 @@ export class BoardComponent {
         }
       }
 
-       //Owner based Constraint parser
-      for( let c of ownerConstraints){
+       //Owner based Rules parser
+      for( let c of ownerRules){
         if(Math.floor(p.x)==c.x && Math.floor(p.y) ==c.y && p.ownerID == c.ownerID){
           p.direction = c.direction;
           break;
@@ -146,13 +172,14 @@ export class BoardComponent {
 
     for(let c of safeZones){
       if(Math.floor(pin.x) == c.x && Math.floor(pin.y) == c.y){
-        console.log(pin.id + " is in safe Zone!")
+        console.log("Player " + pin.ownerID + " piece" + " is in safe Zone!")
         return;
       }
     }
 
     for(let p of this.GameBoard.pins){
-      if(Math.floor(p.x) == Math.floor(pin.x) && Math.floor(p.y) == Math.floor(pin.y) && p.id!=pin.id && p.ownerID!=pin.ownerID){
+      if(Math.floor(p.x) == Math.floor(pin.x) && Math.floor(p.y) == Math.floor(pin.y) &&
+      p.id!=pin.id && p.ownerID!=pin.ownerID){
         console.log("Player "+ pin.ownerID+"["+pin.id+"]" +" killed "+ "Player "+ p.ownerID+"["+p.id+"]"+"!")
         p.x = p.ix;
         p.y = p.iy;
@@ -180,7 +207,7 @@ export class BoardComponent {
   winCheck(){
     for (let i =0;i<4;i++){
       if (this.winvar[i] == 4 ){
-        alert("Player" + (i+1) +" wins")
+        Swal.fire("Player" + (i+1) +" wins")
         location.reload();
       }
     }
@@ -210,19 +237,23 @@ export class BoardComponent {
 
   CalculateTurn(){
     let homePieces = 0;
-    for(let p of this.GameBoard.pins){
-      if(p.ownerID == this.turn && !p.isPlaying){
+    for(let p of this.GameBoard.pins)
+    {
+      if(p.ownerID == this.turn && !p.isPlaying)
+      {
         homePieces+=1
       }
     }
-    if(homePieces == 4 && this.DieResult!=6){
+    if(homePieces == 4 && this.DieResult!=6)
+    {
       this.turn = ((this.turn) % 4) + 1;
-    }else{
+    }
+    else
+    {
       this.canPlay = false
       if(homePieces!=4)
-      alert("Click to piece to move")
+      Swal.fire("Click the piece to move")
       this.processMove(this.DieResult);
-
     }
 
   }
@@ -231,7 +262,7 @@ export class BoardComponent {
     let min = 1;
     let max = 6;
     this.DieResult = min + Math.floor(Math.random() * (max - min + 1));
-    alert("Player" + this.turn + " rolled " + this.DieResult)
+    Swal.fire("Player" + this.turn + " rolled " + this.DieResult)
     this.CalculateTurn();
 
   }
@@ -239,40 +270,17 @@ export class BoardComponent {
    getColor(i:number) {
     switch(i){
       case 1:
-        return '#66bb6a' //green
+        return 'green'
       case 2:
-        return '#fff176' //yellow
+        return 'yellow'
       case 3:
-        return 'blue' //blue
+        return 'blue'
       case 4:
-        return '#e53935' //yellow
+        return 'red'
       default:
         return 'black'
     }
   }
 
-  GameBoard: Board = {
-    pins: [
-      {id:1,ix:2,iy:2,x:2,y:2,ownerID:1,isPlaying:false,direction:"right"},
-      {id:2,ix:2,iy:3,x:2,y:3,ownerID:1,isPlaying:false,direction:"right"},
-      {id:3,ix:3,iy:2,x:3,y:2,ownerID:1,isPlaying:false,direction:"right"},
-      {id:4,ix:3,iy:3,x:3,y:3,ownerID:1,isPlaying:false,direction:"right"},
 
-      {id:5,ix:11,iy:2,x:11,y:2,ownerID:2,isPlaying:false,direction:"down"},
-      {id:6,ix:11,iy:3,x:11,y:3,ownerID:2,isPlaying:false,direction:"down"},
-      {id:7,ix:12,iy:2,x:12,y:2,ownerID:2,isPlaying:false,direction:"down"},
-      {id:8,ix:12,iy:3,x:12,y:3,ownerID:2,isPlaying:false,direction:"down"},
-
-      {id:9,ix:11,iy:11,x:11,y:11,ownerID:3,isPlaying:false,direction:"left"},
-      {id:10,ix:11,iy:12,x:11,y:12,ownerID:3,isPlaying:false,direction:"left"},
-      {id:11,ix:12,iy:11,x:12,y:11,ownerID:3,isPlaying:false,direction:"left"},
-      {id:12,ix:12,iy:12,x:12,y:12,ownerID:3,isPlaying:false,direction:"left"},
-
-      {id:13,ix:2,iy:11,x:2,y:11,ownerID:4,isPlaying:false,direction:"up"},
-      {id:14,ix:3,iy:11,x:3,y:11,ownerID:4,isPlaying:false,direction:"up"},
-      {id:15,ix:2,iy:12,x:2,y:12,ownerID:4,isPlaying:false,direction:"up"},
-      {id:16,ix:3,iy:12,x:3,y:12,ownerID:4,isPlaying:false,direction:"up"},
-
-    ]
-  };
 }
